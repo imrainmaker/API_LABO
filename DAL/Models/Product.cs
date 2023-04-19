@@ -20,13 +20,14 @@ namespace DAL.Models
 
         }
 
-        public Product(int productId, string name, string description, decimal price, User seller)
+        public Product(int productId, string name, string description, decimal price, User seller, ProductStatus status)
         {
             ProductId = productId;
             Name = name;
             Description = description;
             Price = price;
             Seller = seller;
+            Status = status;
         }
 
         [Key]
@@ -45,7 +46,12 @@ namespace DAL.Models
         [Required]
         public decimal Price { get; set; }
 
+        [Required]
+        public ProductStatus Status { get; set; }
+
         public User? Seller { get; set; }
+
+        public int SellerId { get; set; }
 
     }
 }

@@ -14,6 +14,7 @@ namespace DAL.Context.Config
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+
             builder.HasCheckConstraint("CK_Email", "[Email] LIKE '%@%.%'");
             builder.HasIndex(u => u.Email).IsUnique();
             builder.HasData(
@@ -46,7 +47,7 @@ namespace DAL.Context.Config
                                 Lastname = "Martin",
                                 Firstname = "Bob",
                                 Phone = "+1 123-456-7890",
-                                Role = Roles.user,
+                                Role = Roles.seller,
                                 
                             },
                             new User
@@ -78,7 +79,7 @@ namespace DAL.Context.Config
                                 Lastname = "Lee",
                                 Firstname = "David",
                                 Phone = "+44 20 1234 5678",
-                                Role = Roles.user,
+                                Role = Roles.seller,
                                 
                             },
                             new User
@@ -110,7 +111,7 @@ namespace DAL.Context.Config
                                 Lastname = "Chen",
                                 Firstname = "Frank",
                                 Phone = "+86 21 1234 5678",
-                                Role = Roles.user,
+                                Role = Roles.seller,
                                 
                             },
                             new User
@@ -127,7 +128,7 @@ namespace DAL.Context.Config
                                 Lastname = "Wong",
                                 Firstname = "Grace",
                                 Phone = "555-1234",
-                                Role = Roles.user
+                                Role = Roles.seller
                             },
                             new User
                             {
@@ -175,7 +176,7 @@ namespace DAL.Context.Config
                                 Lastname = "Kim",
                                 Firstname = "Jack",
                                 Phone = "555-1234",
-                                Role = Roles.user
+                                Role = Roles.seller
                             }
                         );
         }

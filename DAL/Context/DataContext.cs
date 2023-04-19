@@ -1,5 +1,7 @@
 ﻿using DAL.Context.Config;
+using DAL.Interfaces;
 using DAL.Models;
+using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,7 @@ namespace DAL.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=forma-VDI1202\TFTIC;"
-                                        + "Database=API_LABO;"
+                                        + "Database=API_LABO2;"
                                         + "Trusted_Connection=True;"
                                         + "TrustServerCertificate=True;");
         }
@@ -25,6 +27,7 @@ namespace DAL.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfig());
+            modelBuilder.ApplyConfiguration(new ProductConfig());
         }
 
     }
