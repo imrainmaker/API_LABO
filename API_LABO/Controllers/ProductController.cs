@@ -1,5 +1,6 @@
 ﻿using DAL.Context;
 using DAL.Models;
+using DAL.Models.Mapper;
 using DAL.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,10 +22,10 @@ namespace API_LABO.Controllers
 
         [HttpGet("{id}")]
 
-        public ActionResult<Product?> GetById(int id)
+        public ActionResult<ProductViewModel?> GetById(int id)
         {
-     
-            return _context.products.Include(p => p.Seller).First(p => p.ProductId == id);
+            return _context.products.Include(p => p.Seller).First(p => p.ProductId == id).ToProductViewModel();
+           
         }
     }
 }

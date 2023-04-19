@@ -10,6 +10,7 @@ using System.Numerics;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Models.ViewModels;
 
 namespace DAL.Models
 {
@@ -20,7 +21,7 @@ namespace DAL.Models
 
         }
 
-        public Product(int productId, string name, string description, decimal price, User seller, ProductStatus status)
+        public Product(int productId, string name, string description, decimal price, User? seller, ProductStatus status)
         {
             ProductId = productId;
             Name = name;
@@ -50,8 +51,6 @@ namespace DAL.Models
         public ProductStatus Status { get; set; }
 
         public User? Seller { get; set; }
-
-        public int SellerId { get; set; }
 
     }
 }

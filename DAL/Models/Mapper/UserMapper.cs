@@ -26,21 +26,25 @@ namespace DAL.Models.Mapper
 
         public static UserViewModel ToUserViewModel(this User user)
         {
-            return new UserViewModel
+            if(user is not null)
             {
-                UserId = user.UserId,
-                Email = user.Email,
-                Street = user.Street,
-                StreetNbr = user.StreetNbr,
-                StreetBox = user.StreetBox,
-                ZipCode = user.ZipCode,
-                City = user.City,
-                Country = user.Country,
-                Lastname = user.Lastname,
-                Firstname = user.Firstname,
-                Phone = user.Phone,
-                Role = user.Role
-            };
+                return new UserViewModel
+                {
+                    UserId = user.UserId,
+                    Email = user.Email,
+                    Street = user.Street,
+                    StreetNbr = user.StreetNbr,
+                    StreetBox = user.StreetBox,
+                    ZipCode = user.ZipCode,
+                    City = user.City,
+                    Country = user.Country,
+                    Lastname = user.Lastname,
+                    Firstname = user.Firstname,
+                    Phone = user.Phone,
+                    Role = user.Role
+                };
+            }
+            return null;
 
         }
 
