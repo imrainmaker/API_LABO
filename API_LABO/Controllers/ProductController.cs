@@ -96,7 +96,7 @@ namespace API_LABO.Controllers
         {
             if (buyProduct)
             {
-                ProductViewModel? productVM = _productService.BuyProduct(id);
+                ProductViewModel? productVM = _productService.BuyProduct(id, 3 /*Mettre ici la valeur du token dans ID*/);
                 return productVM is not null ? Ok(productVM) : BadRequest();
             }
             return BadRequest("Achat annulé");
@@ -107,7 +107,7 @@ namespace API_LABO.Controllers
         public ActionResult<ProductViewModel?> ConfirmBuyProduct(int id, bool ComfirmBuyProduct)
         {
 
-            ProductViewModel? productVM = _productService.ConfirmBuyProduct(id, ComfirmBuyProduct);
+            ProductViewModel? productVM = _productService.ConfirmBuyProduct(id, ComfirmBuyProduct, 4 /*Mettre ici la valeur du token dans ID*/);
             return productVM is not null ? Ok(productVM) : BadRequest();
 
         }

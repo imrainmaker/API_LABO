@@ -68,14 +68,26 @@ namespace BLL.Services
             return null;
         }
 
-        public ProductViewModel? BuyProduct(int id)
+        public ProductViewModel? BuyProduct(int id, int userId)
         {
             Product? productToUpdate = _productRepository.GetById(id);
+            User? user = _productRepository.GetUser(userId);
 
             if (productToUpdate is not null && productToUpdate.Status == ProductStatus.ForSale)
             {
 
                 productToUpdate.Status = ProductStatus.AwaitingConfirmation;
+                Invoice invoice = new Invoice
+                {
+                    Buyer = user,
+                    Product = productToUpdate,
+                    Price = productToUpdate.Price,
+                    DeliveryAddress = $"{user.Street} {user.StreetNbr} {user.StreetBox}, {user.ZipCode} {user.City}, {user.Country}",
+                    Date = DateTime.Now,
+                    Status = InvoiceStatus.Open
+                };
+
+                _invoiceRepository.CreateInvoice(invoice);
 
                 return _productRepository.UpdateProduct(productToUpdate).ToProductViewModel();
             }
@@ -84,14 +96,26 @@ namespace BLL.Services
 
     
 
-        public ProductViewModel? ConfirmBuyProduct(int id, bool ComfirmBuyProduct)
+        public ProductViewModel? ConfirmBuyProduct(int id, bool ComfirmBuyProduct, int userId)
         {
             Product? productToUpdate = _productRepository.GetById(id);
+            Invoice? invoice= _invoiceRepository.GetByProduct(id);
 
             if (productToUpdate is not null && productToUpdate.Status == ProductStatus.AwaitingConfirmation)
             {
 
-                productToUpdate.Status = ComfirmBuyProduct ? ProductStatus.Sold : ProductStatus.ForSale;
+                if (ComfirmBuyProduct)
+                {
+                    invoice.Status = InvoiceStatus.Closed;
+                    productToUpdate.Status = ProductStatus.Sold;
+                }
+                else 
+                {
+                    invoice.Status = InvoiceStatus.Denied;
+                    productToUpdate.Status = ProductStatus.ForSale;
+                }
+
+                _invoiceRepository.ConfirmInvoice(invoice);
 
                 return _productRepository.UpdateProduct(productToUpdate).ToProductViewModel();
             }

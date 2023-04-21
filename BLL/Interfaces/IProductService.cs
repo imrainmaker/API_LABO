@@ -20,9 +20,9 @@ namespace BLL.Interfaces
 
         public bool DeleteProduct(int id);
 
-        public ProductViewModel? BuyProduct(int id);
+        public ProductViewModel? BuyProduct(int id, int userId);
 
-        public ProductViewModel? ConfirmBuyProduct(int id, bool ComfirmBuyProduct);
+        public ProductViewModel? ConfirmBuyProduct(int id, bool ComfirmBuyProduct, int userId);
 
 
     }

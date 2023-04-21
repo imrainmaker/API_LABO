@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using DAL.Enums;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,6 +29,9 @@ namespace DAL.Models
         [Required]
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
+
+        [Required]
+        public InvoiceStatus Status { get; set; }
 
         
         
