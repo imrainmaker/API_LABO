@@ -36,5 +36,66 @@ namespace DAL.Repositories
                 return null;
             }
         }
+
+        public IEnumerable<Product> GetBySeller(int id)
+        {
+            try
+            {
+                return _context.products.Include(p => p.Seller).Where(p => p.Seller.UserId == id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+
+        public Product? CreateProduct(Product product)
+        {
+            try
+            {
+                _context.products.Add(product);
+                _context.SaveChanges();
+                return product;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+        public Product? UpdateProduct(Product product)
+        {
+            try
+            {
+                _context.products.Update(product);
+                _context.SaveChanges();
+                return product;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+        public bool DeleteProduct(Product product)
+        {
+            try
+            {
+                _context.products.Remove(product);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
     }
 }

@@ -21,9 +21,8 @@ namespace DAL.Models
 
         }
 
-        public Product(int productId, string name, string description, decimal price, User? seller, ProductStatus status)
+        public Product(string name, string description, decimal price, User? seller, ProductStatus status = ProductStatus.ForSale)
         {
-            ProductId = productId;
             Name = name;
             Description = description;
             Price = price;
