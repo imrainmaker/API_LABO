@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using DAL.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,9 @@ namespace DAL.Interfaces
 
         public IEnumerable<Product> GetBySeller(int id);
 
-        public Product? CreateProduct(Product product);
+        public User? GetUser(int id);
+
+        public Product? CreateProduct(Product product, User user);
 
 
         public Product? UpdateProduct(Product product);

@@ -22,7 +22,7 @@ namespace DAL.Repositories
 
         public IEnumerable<Product> GetAll()
         {
-            return _context.products.ToList();
+            return _context.products.Include(p => p.Seller).ToList();
         }
         public Product? GetById(int id)
         {
@@ -50,12 +50,26 @@ namespace DAL.Repositories
             }
         }
 
+        public User? GetUser(int id)
+        {
+            try
+            {
+                return _context.users.Find(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
 
-        public Product? CreateProduct(Product product)
+
+        public Product? CreateProduct(Product product, User user)
         {
             try
             {
                 _context.products.Add(product);
+                _context.users.Update(user);
                 _context.SaveChanges();
                 return product;
 

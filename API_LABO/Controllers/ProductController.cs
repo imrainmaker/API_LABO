@@ -97,5 +97,27 @@ namespace API_LABO.Controllers
 
             return BadRequest();
         }
+
+        [HttpPatch("buy/{id}")]
+
+        public ActionResult<ProductViewModel?> BuyProduct(int id, bool buyProduct)
+        {
+            if (buyProduct)
+            {
+                ProductViewModel? productVM = _productService.BuyProduct(id);
+                return productVM is not null ? Ok(productVM) : BadRequest();
+            }
+            return BadRequest("Achat annulé");
+
+        }
+
+        [HttpPatch("sell/{id}")]
+        public ActionResult<ProductViewModel?> ConfirmBuyProduct(int id, bool ComfirmBuyProduct)
+        {
+
+            ProductViewModel? productVM = _productService.ConfirmBuyProduct(id, ComfirmBuyProduct);
+            return productVM is not null ? Ok(productVM) : BadRequest();
+
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BLL.Interfaces;
+using DAL.Enums;
 using DAL.Interfaces;
 using DAL.Models;
 using DAL.Models.DTO;
@@ -44,18 +45,22 @@ namespace BLL.Services
 
         public ProductViewModel? CreateProduct(CreateProductDTO createProductDTO)
         {
-            Product? productSeller = _productRepository.GetBySeller(createProductDTO.Seller).First();
-            User? seller = productSeller is not null ? productSeller.Seller : null;
+   
+            User? seller = _productRepository.GetUser(createProductDTO.Seller);
 
-            return _productRepository.CreateProduct(createProductDTO.ToProduct(seller))?.ToProductViewModel();
+            if (seller.Role == Roles.user)
+            {
+                seller.Role = Roles.seller;
+            }
+
+            return _productRepository.CreateProduct(createProductDTO.ToProduct(seller), seller)?.ToProductViewModel();
         }
 
         public ProductViewModel? UpdateProduct(int id, UpdateProductDTO product)
         {
             Product? productToUpdate = _productRepository.GetById(id);
 
-            Product? productSeller = _productRepository.GetBySeller(product.Seller).First();
-            User? seller = productSeller is not null ? productSeller.Seller : null;
+            User? seller = _productRepository.GetUser(product.Seller);
             if (productToUpdate is not null)
             {
                 productToUpdate.Name = product.Name;
@@ -63,6 +68,36 @@ namespace BLL.Services
                 productToUpdate.Price = product.Price;
                 productToUpdate.Seller = seller;
                 productToUpdate.Status = product.Status;
+
+                return _productRepository.UpdateProduct(productToUpdate).ToProductViewModel();
+            }
+            return null;
+        }
+
+        public ProductViewModel? BuyProduct(int id)
+        {
+            Product? productToUpdate = _productRepository.GetById(id);
+
+            if (productToUpdate is not null && productToUpdate.Status == ProductStatus.ForSale)
+            {
+
+                productToUpdate.Status = ProductStatus.AwaitingConfirmation;
+
+                return _productRepository.UpdateProduct(productToUpdate).ToProductViewModel();
+            }
+            return null;
+        }
+
+    
+
+        public ProductViewModel? ConfirmBuyProduct(int id, bool ComfirmBuyProduct)
+        {
+            Product? productToUpdate = _productRepository.GetById(id);
+
+            if (productToUpdate is not null && productToUpdate.Status == ProductStatus.AwaitingConfirmation)
+            {
+
+                productToUpdate.Status = ComfirmBuyProduct ? ProductStatus.Sold : ProductStatus.ForSale;
 
                 return _productRepository.UpdateProduct(productToUpdate).ToProductViewModel();
             }
