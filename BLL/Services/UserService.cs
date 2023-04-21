@@ -2,7 +2,7 @@
 using DAL.Enums;
 using DAL.Interfaces;
 using DAL.Models;
-using DAL.Models.DTO;
+using DAL.Models.DTO.UserDTO;
 using DAL.Models.Mapper;
 using DAL.Models.ViewModels;
 using System;

@@ -1,25 +1,17 @@
-﻿using DAL.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Models.DTO
+namespace DAL.Models.DTO.UserDTO
 {
-    public class CreateUserDTO
+    public class UpdateUserDTO
     {
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-
-        [Required]
-        [RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,25}$")]
-        public string Password { get; set; }
-
-        [Compare("Password")]
-        public string CheckPassword { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -46,11 +38,8 @@ namespace DAL.Models.DTO
 
         [MaxLength(100)]
         public string? Firstname { get; set; }
+
         public string? Phone { get; set; }
-
-
-
 
     }
 }
-
