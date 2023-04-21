@@ -1,4 +1,6 @@
-﻿using DAL.Context;
+﻿using BLL.Interfaces;
+using BLL.Services;
+using DAL.Context;
 using DAL.Models;
 using DAL.Models.Mapper;
 using DAL.Models.ViewModels;
@@ -13,19 +15,31 @@ namespace API_LABO.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IProductService _productService;
 
-        public ProductController(DataContext context)
+        public ProductController(IProductService productService)
         {
-            _context = context;
+            _productService = productService;
+        }
+
+        [HttpGet]
+
+        public ActionResult<IEnumerable<ProductViewModel>> Get()
+        {
+            return Ok(_productService.GetAll());
         }
 
         [HttpGet("{id}")]
 
-        public ActionResult<ProductViewModel?> GetById(int id)
+        public ActionResult<ProductViewModel> GetById(int id)
         {
-            return _context.products.Include(p => p.Seller).First(p => p.ProductId == id).ToProductViewModel();
-           
+            if (ModelState.IsValid)
+            {
+                ProductViewModel? productVM = _productService.GetById(id);
+                return productVM is not null ? Ok(productVM) : BadRequest();
+            }
+
+            return BadRequest();
         }
     }
 }

@@ -28,5 +28,17 @@ namespace DAL.Models.Mapper
                 Seller = product.Seller.ToUserViewModel()
             };
         }
+
+        public static List<ProductViewModel> ToProductViewModelList(this IEnumerable<Product> product)
+        {
+            List<ProductViewModel> productViewModelList = new List<ProductViewModel>();
+
+            foreach (Product p in product)
+            {
+                productViewModelList.Add(p.ToProductViewModel());
+            }
+
+            return productViewModelList;
+        }
     }
 }
