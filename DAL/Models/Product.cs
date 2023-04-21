@@ -1,16 +1,6 @@
 ﻿using DAL.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Metrics;
-using System.IO;
-using System.Linq;
-using System.Numerics;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using DAL.Models.ViewModels;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Models
 {

@@ -2,26 +2,21 @@
 using DAL.Enums;
 using DAL.Interfaces;
 using DAL.Models;
-using DAL.Models.DTO;
 using DAL.Models.DTO.ProductDTO;
 using DAL.Models.Mapper;
 using DAL.Models.ViewModels;
-using DAL.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Services
 {
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
+        private readonly IInvoiceRepository _invoiceRepository;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, IInvoiceRepository invoiceRepository)
         {
             _productRepository = productRepository;
+            _invoiceRepository = invoiceRepository;
         }
 
         public IEnumerable<ProductViewModel> GetAll()
@@ -41,7 +36,6 @@ namespace BLL.Services
 
             return _productRepository.GetBySeller(id).ToProductViewModelList();
         }
-
 
         public ProductViewModel? CreateProduct(CreateProductDTO createProductDTO)
         {

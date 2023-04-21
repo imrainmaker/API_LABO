@@ -5,15 +5,6 @@ using DAL.Models;
 using DAL.Models.DTO.UserDTO;
 using DAL.Models.Mapper;
 using DAL.Models.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.IO;
-using System.Linq;
-using System.Numerics;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Services
 {
@@ -32,6 +23,7 @@ namespace BLL.Services
         {
             return _userRepository.GetAll().ToUserViewModelList();
         }
+
         public UserViewModel? GetById(int id)
         {
 
@@ -116,7 +108,6 @@ namespace BLL.Services
             }
             return false;
         }
-
 
     }
 }

@@ -1,13 +1,5 @@
-﻿using DAL.Enums;
-using DAL.Models.DTO;
-using DAL.Models.DTO.ProductDTO;
+﻿using DAL.Models.DTO.ProductDTO;
 using DAL.Models.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Models.Mapper
 {

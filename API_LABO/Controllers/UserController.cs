@@ -1,5 +1,4 @@
 ﻿using BLL.Interfaces;
-using DAL.Models;
 using DAL.Models.DTO.UserDTO;
 using DAL.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
