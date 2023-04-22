@@ -1,4 +1,5 @@
 ﻿using DAL.Context;
+using DAL.Enums;
 using DAL.Interfaces;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
@@ -68,7 +69,7 @@ namespace DAL.Repositories
         {
             try
             {
-                return _context.invoices.Find(id);
+                return _context.invoices.Include(i => i.Buyer).Include(i => i.Product).First(i => i.InvoiceId == id);
             }
             catch (Exception e)
             {
@@ -81,7 +82,7 @@ namespace DAL.Repositories
         {
             try
             {
-                return _context.invoices.Include(x => x.Product.ProductId == id && x.Status == Enums.InvoiceStatus.Open).FirstOrDefault();
+                return _context.invoices.Include(i => i.Buyer).Include(i => i.Product).Where(i => i.Product.ProductId == id && i.Status == InvoiceStatus.Open).First();
             }
             catch (Exception e)
             {
